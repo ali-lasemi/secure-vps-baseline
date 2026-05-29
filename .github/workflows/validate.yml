@@ -1,0 +1,33 @@
+name: Validate Repository
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate docs and scripts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          test -f README.md
+          test -f ROADMAP.md
+          test -f CHANGELOG.md
+          test -f docs/ssh-hardening.md
+          test -f docs/firewall.md
+          test -f docs/fail2ban.md
+          test -f docs/system-updates.md
+          test -f docs/backup.md
+          test -f examples/ssh/sshd_config.example
+          test -f examples/firewall/ufw-rules.md
+          test -f examples/fail2ban/jail.local.example
+          test -f examples/system/sysctl-hardening.conf
+
+      - name: Validate shell scripts
+        run: |
+          bash -n scripts/*.sh
