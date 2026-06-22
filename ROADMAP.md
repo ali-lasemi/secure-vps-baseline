@@ -10,6 +10,7 @@
 - [x] System hardening examples
 - [x] Backup automation examples
 - [x] Validation workflow
+- [x] VPS security audit script
 
 ---
 
