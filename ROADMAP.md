@@ -16,7 +16,7 @@
 
 ## Phase 2 — Advanced Hardening
 
-- [ ] Docker host hardening
+- [x] Docker host hardening
 - [ ] CIS-inspired hardening checklist
 - [ ] Audit logging examples
 - [ ] Security monitoring integration
