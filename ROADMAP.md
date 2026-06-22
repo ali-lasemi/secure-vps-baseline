@@ -18,6 +18,7 @@
 
 - [x] Docker host hardening
 - [x] Security scoring report
+- [x] Incident response checklist
 - [ ] CIS-inspired hardening checklist
 - [ ] Audit logging examples
 - [ ] Security monitoring integration
