@@ -21,6 +21,7 @@
 - [ ] Audit logging examples
 - [ ] Security monitoring integration
 - [ ] Intrusion detection examples
+- [x] CIS-inspired hardening checklist
 
 ---
 
