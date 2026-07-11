@@ -29,9 +29,23 @@ echo "Checking SSH configuration..."
 SSHD_CONFIG="/etc/ssh/sshd_config"
 
 if [[ -f "$SSHD_CONFIG" ]]; then
-  grep -Eq "^PermitRootLogin\s+no" "$SSHD_CONFIG" && pass "Root SSH login disabled" || fail "Root SSH login is not explicitly disabled"
-  grep -Eq "^PasswordAuthentication\s+no" "$SSHD_CONFIG" && pass "Password authentication disabled" || fail "Password authentication is not explicitly disabled"
-  grep -Eq "^PubkeyAuthentication\s+yes" "$SSHD_CONFIG" && pass "Public key authentication enabled" || warn "Public key authentication is not explicitly enabled"
+  if grep -Eq "^PermitRootLogin\s+no" "$SSHD_CONFIG"; then
+    pass "Root SSH login disabled"
+  else
+    fail "Root SSH login is not explicitly disabled"
+  fi
+
+  if grep -Eq "^PasswordAuthentication\s+no" "$SSHD_CONFIG"; then
+    pass "Password authentication disabled"
+  else
+    fail "Password authentication is not explicitly disabled"
+  fi
+
+  if grep -Eq "^PubkeyAuthentication\s+yes" "$SSHD_CONFIG"; then
+    pass "Public key authentication enabled"
+  else
+    warn "Public key authentication is not explicitly enabled"
+  fi
 else
   warn "sshd_config not found"
 fi
