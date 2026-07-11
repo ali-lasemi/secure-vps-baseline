@@ -13,21 +13,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check required files
+      - name: Check required files exist and are not empty
         run: |
-          test -f README.md
-          test -f ROADMAP.md
-          test -f CHANGELOG.md
-          test -f docs/ssh-hardening.md
-          test -f docs/firewall.md
-          test -f docs/fail2ban.md
-          test -f docs/system-updates.md
-          test -f docs/backup.md
-          test -f examples/ssh/sshd_config.example
-          test -f examples/firewall/ufw-rules.md
-          test -f examples/fail2ban/jail.local.example
-          test -f examples/system/sysctl-hardening.conf
+          required_files=(
+            README.md
+            ROADMAP.md
+            CHANGELOG.md
+            docs/ssh-hardening.md
+            docs/firewall.md
+            docs/fail2ban.md
+            docs/system-updates.md
+            docs/backup.md
+            docs/troubleshooting.md
+            examples/ssh/sshd_config.example
+            examples/firewall/ufw-rules.md
+            examples/fail2ban/jail.local.example
+            examples/system/sysctl-hardening.conf
+            scripts/secure-ssh.sh
+            scripts/setup-firewall.sh
+            scripts/install-fail2ban.sh
+            scripts/backup-server.sh
+          )
+          for f in "${required_files[@]}"; do
+            if ! test -s "$f"; then
+              echo "Missing or empty required file: $f"
+              exit 1
+            fi
+          done
 
-      - name: Validate shell scripts
-        run: |
-          bash -n scripts/*.sh
+      - name: Validate shell script syntax
+        run: bash -n scripts/*.sh
+
+      - name: Run ShellCheck
+        run: shellcheck scripts/*.sh
