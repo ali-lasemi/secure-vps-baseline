@@ -10,16 +10,20 @@
 - [x] System hardening examples
 - [x] Backup automation examples
 - [x] Validation workflow
+- [x] VPS security audit script
 
 ---
 
 ## Phase 2 — Advanced Hardening
 
-- [ ] Docker host hardening
+- [x] Docker host hardening
+- [x] Security scoring report
+- [x] Incident response checklist
 - [ ] CIS-inspired hardening checklist
 - [ ] Audit logging examples
 - [ ] Security monitoring integration
 - [ ] Intrusion detection examples
+- [x] CIS-inspired hardening checklist
 
 ---
 
