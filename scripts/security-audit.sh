@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 
 set -uo pipefail
 
@@ -178,7 +178,7 @@ section "System Updates"
 
 if command_exists apt-get; then
 
-UPDATES=$(apt-get -s upgrade 2>/dev/null | grep "^Inst" | wc -l)
+UPDATES=$(apt-get -s upgrade 2>/dev/null | grep -c "^Inst")
 
 
 if [[ "$UPDATES" -eq 0 ]]; then
