@@ -237,9 +237,7 @@ FAILED=$(journalctl \
 -u sshd \
 --since "24 hours ago" \
 2>/dev/null |
-grep -Ei \
-"failed password|invalid user" |
-wc -l)
+grep -Eic "failed password|invalid user")
 
 
 if [[ "$FAILED" -eq 0 ]]; then
