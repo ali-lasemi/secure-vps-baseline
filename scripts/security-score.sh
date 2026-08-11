@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 set -uo pipefail
 
@@ -43,9 +43,9 @@ check_ssh() {
         ROOT=$(sshd -T 2>/dev/null | awk '/permitrootlogin/ {print $2}')
         PASSAUTH=$(sshd -T 2>/dev/null | awk '/passwordauthentication/ {print $2}')
 
-        [[ "$ROOT" == "no" ]] && pass "Root login disabled" || fail "Root login enabled"
+        if [[ "$ROOT" == "no" ]]; then`n    pass "Root login disabled"`nelse`n    fail "Root login enabled"`nfi
 
-        [[ "$PASSAUTH" == "no" ]] && pass "Password authentication disabled" || warn "Password authentication enabled"
+        if [[ "$PASSAUTH" == "no" ]]; then`n    pass "Password authentication disabled"`nelse`n    warn "Password authentication enabled"`nfi
 
     else
         warn "sshd unavailable"
@@ -58,9 +58,7 @@ check_firewall() {
 
     if command -v ufw >/dev/null 2>&1; then
 
-        ufw status | grep -q active \
-        && pass "UFW active" \
-        || fail "UFW inactive"
+        if ufw status | grep -q active; then`n    pass "UFW active"`nelse`n    fail "UFW inactive"`nfi
 
     else
         warn "UFW missing"
@@ -86,9 +84,7 @@ check_updates() {
 
         UPDATES=$(apt-get -s upgrade 2>/dev/null | grep -c "^Inst")
 
-        [[ "$UPDATES" -eq 0 ]] \
-        && pass "No pending updates" \
-        || warn "$UPDATES pending updates"
+        if [[ "$UPDATES" -eq 0 ]]; then`n    pass "No pending updates"`nelse`n    warn "$UPDATES pending updates"`nfi
 
     else
         warn "APT unavailable"
