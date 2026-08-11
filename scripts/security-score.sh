@@ -43,9 +43,17 @@ check_ssh() {
         ROOT=$(sshd -T 2>/dev/null | awk '/permitrootlogin/ {print $2}')
         PASSAUTH=$(sshd -T 2>/dev/null | awk '/passwordauthentication/ {print $2}')
 
-        if [[ "$ROOT" == "no" ]]; then`n    pass "Root login disabled"`nelse`n    fail "Root login enabled"`nfi
+        if [[ "$ROOT" == "no" ]]; then
+    pass "Root login disabled"
+else
+    fail "Root login enabled"
+fi
 
-        if [[ "$PASSAUTH" == "no" ]]; then`n    pass "Password authentication disabled"`nelse`n    warn "Password authentication enabled"`nfi
+        if [[ "$PASSAUTH" == "no" ]]; then
+    pass "Password authentication disabled"
+else
+    warn "Password authentication enabled"
+fi
 
     else
         warn "sshd unavailable"
@@ -58,7 +66,11 @@ check_firewall() {
 
     if command -v ufw >/dev/null 2>&1; then
 
-        if ufw status | grep -q active; then`n    pass "UFW active"`nelse`n    fail "UFW inactive"`nfi
+        if ufw status | grep -q active; then
+    pass "UFW active"
+else
+    fail "UFW inactive"
+fi
 
     else
         warn "UFW missing"
@@ -84,7 +96,11 @@ check_updates() {
 
         UPDATES=$(apt-get -s upgrade 2>/dev/null | grep -c "^Inst")
 
-        if [[ "$UPDATES" -eq 0 ]]; then`n    pass "No pending updates"`nelse`n    warn "$UPDATES pending updates"`nfi
+        if [[ "$UPDATES" -eq 0 ]]; then
+    pass "No pending updates"
+else
+    warn "$UPDATES pending updates"
+fi
 
     else
         warn "APT unavailable"
